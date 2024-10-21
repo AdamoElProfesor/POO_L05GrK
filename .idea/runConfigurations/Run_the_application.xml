@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run the application" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="ch.heigvd.poo.Main" />
+    <module name="POO_L05GrK" />
+    <option name="PROGRAM_PARAMETERS" value="10 12 -14 16 4 3" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
