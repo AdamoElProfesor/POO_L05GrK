@@ -22,6 +22,17 @@ public class Matrix {
         }
     }
     public Matrix(int[][] values, int mod) {
+        // Check if matrix given is null ?
+        this.N = values.length;
+        this.M = values[0].length;
+        this.mod = mod;
+        this.values = new int[N][M];
+
+        for(int i = 0; i < N; i++) {
+            for(int j = 0; j < M; j++) {
+                this.values[i][j] = values[i][j] % mod;
+            }
+        }
     }
 
     @Override
