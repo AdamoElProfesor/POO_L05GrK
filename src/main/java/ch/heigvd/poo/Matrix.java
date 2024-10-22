@@ -74,7 +74,7 @@ public class Matrix {
 
         for (int i = 0; i < biggestN; i++) {
             for (int j = 0; j < biggestM; j++) {
-                tempMatrix.values[i][j] = (tempMatrix.values[i][j] + tempMatrix2.values[i][j]) % mod;
+                tempMatrix.values[i][j] = Math.floorMod(tempMatrix.values[i][j] + tempMatrix2.values[i][j], mod);
             }
         }
         return tempMatrix;
