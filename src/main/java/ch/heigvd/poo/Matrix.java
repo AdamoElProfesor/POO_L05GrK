@@ -35,6 +35,24 @@ public class Matrix {
         }
     }
 
+    public Matrix(int N, int M, int mod, int[][] values) {
+        // Check if matrix given is null ?
+        this.N = N;
+        this.M = M;
+        this.mod = mod;
+        this.values = new int[N][M];
+
+        int currentValuesN = values.length;
+        int currentValuesM = values[0].length;
+
+        for(int i = 0; i < N; i++) {
+            for(int j = 0; j < M; j++) {
+                if (i < currentValuesN && j < currentValuesM) this.values[i][j] = values[i][j] % mod;
+                else this.values[i][j] = 0;
+            }
+        }
+    }
+
     @Override
     public String toString() {
         String str = new String("");
