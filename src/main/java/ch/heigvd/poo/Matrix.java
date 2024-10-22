@@ -96,7 +96,18 @@ public class Matrix {
     }
 
     public Matrix componentProduct(Matrix other){
-        return null;
+        int biggestN = Math.max(this.N, other.N);
+        int biggestM = Math.max(this.M, other.M);
+
+        Matrix tempMatrix = new Matrix(biggestN, biggestM, mod, this.values);
+        Matrix tempMatrix2 = new Matrix(biggestN, biggestM, mod, other.values);
+
+        for (int i = 0; i < biggestN; i++) {
+            for (int j = 0; j < biggestM; j++) {
+                tempMatrix.values[i][j] = Math.floorMod((tempMatrix.values[i][j] * tempMatrix2.values[i][j]), mod);
+            }
+        }
+        return tempMatrix;
     }
 
     private boolean areModsEqual(int otherMod){
