@@ -66,6 +66,7 @@ public class Matrix {
     }
 
     public Matrix addition(Matrix other){
+        areModsEqual(other.mod); // Not sure if right
         int biggestN = Math.max(this.N, other.N);
         int biggestM = Math.max(this.M, other.M);
 
@@ -81,6 +82,7 @@ public class Matrix {
     }
 
     public Matrix subtraction(Matrix other){
+        areModsEqual(other.mod); // Not sure if right
         int biggestN = Math.max(this.N, other.N);
         int biggestM = Math.max(this.M, other.M);
 
@@ -96,6 +98,7 @@ public class Matrix {
     }
 
     public Matrix componentProduct(Matrix other){
+        areModsEqual(other.mod); // Not sure if right
         int biggestN = Math.max(this.N, other.N);
         int biggestM = Math.max(this.M, other.M);
 
@@ -111,6 +114,9 @@ public class Matrix {
     }
 
     private boolean areModsEqual(int otherMod){
-        return false;
+        if (this.mod != otherMod) {
+            throw new RuntimeException("the modulus are not equal");
+        }
+        return true;
     }
 }
