@@ -1,6 +1,6 @@
 package ch.heigvd.poo;
-import java.util.function.BinaryOperator;
 
+import java.util.function.BinaryOperator;
 
 public class Matrix {
     private int N;
@@ -22,6 +22,7 @@ public class Matrix {
             }
         }
     }
+
     public Matrix(int[][] values, int mod) {
         // Check if matrix given is null ?
         this.N = values.length;
@@ -56,14 +57,14 @@ public class Matrix {
 
     @Override
     public String toString() {
-        String str = new String("");
+        StringBuilder str = new StringBuilder();
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
-                str += values[i][j] + " ";
+                str.append(values[i][j]).append(" ");
             }
-            str += "\n";
+            str.append("\n");
         }
-        return str;
+        return str.toString();
     }
 
     public Matrix addition(Matrix other) {
@@ -79,20 +80,25 @@ public class Matrix {
     }
 
     private Matrix performOperation(Matrix other, BinaryOperator<Integer> operation) {
-        checkIfModsEquals(other);
-        int biggestN = Math.max(this.N, other.N);
-        int biggestM = Math.max(this.M, other.M);
+        try {
+            checkIfModsEquals(other);
+            int biggestN = Math.max(this.N, other.N);
+            int biggestM = Math.max(this.M, other.M);
 
-        Matrix tempMatrix = new Matrix(biggestN, biggestM, mod, this.values);
-        Matrix tempMatrix2 = new Matrix(biggestN, biggestM, mod, other.values);
+            Matrix tempMatrix = new Matrix(biggestN, biggestM, mod, this.values);
+            Matrix tempMatrix2 = new Matrix(biggestN, biggestM, mod, other.values);
 
-        for (int i = 0; i < biggestN; i++) {
-            for (int j = 0; j < biggestM; j++) {
-                tempMatrix.values[i][j] = operation.apply(tempMatrix.values[i][j], tempMatrix2.values[i][j]);
+            for (int i = 0; i < biggestN; i++) {
+                for (int j = 0; j < biggestM; j++) {
+                    tempMatrix.values[i][j] = operation.apply(tempMatrix.values[i][j], tempMatrix2.values[i][j]);
+                }
             }
-        }
 
-        return tempMatrix;
+            return tempMatrix;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     private void checkIfModsEquals(Matrix other){
