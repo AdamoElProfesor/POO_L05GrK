@@ -1,5 +1,6 @@
 package ch.heigvd.poo;
-import java.util.Random;
+import java.util.function.BinaryOperator;
+
 
 public class Matrix {
     private int N;
@@ -65,8 +66,20 @@ public class Matrix {
         return str;
     }
 
-    public Matrix addition(Matrix other){
-        areModsEqual(other.mod); // Not sure if right
+    public Matrix addition(Matrix other) {
+        return performOperation(other, (a, b) -> Math.floorMod(a + b, mod));
+    }
+
+    public Matrix subtraction(Matrix other) {
+        return performOperation(other, (a, b) -> Math.floorMod(a - b, mod));
+    }
+
+    public Matrix componentProduct(Matrix other) {
+        return performOperation(other, (a, b) -> Math.floorMod(a * b, mod));
+    }
+
+    private Matrix performOperation(Matrix other, BinaryOperator<Integer> operation) {
+        checkIfModsEquals(other);
         int biggestN = Math.max(this.N, other.N);
         int biggestM = Math.max(this.M, other.M);
 
@@ -75,48 +88,16 @@ public class Matrix {
 
         for (int i = 0; i < biggestN; i++) {
             for (int j = 0; j < biggestM; j++) {
-                tempMatrix.values[i][j] = Math.floorMod(tempMatrix.values[i][j] + tempMatrix2.values[i][j], mod);
+                tempMatrix.values[i][j] = operation.apply(tempMatrix.values[i][j], tempMatrix2.values[i][j]);
             }
         }
+
         return tempMatrix;
     }
 
-    public Matrix subtraction(Matrix other){
-        areModsEqual(other.mod); // Not sure if right
-        int biggestN = Math.max(this.N, other.N);
-        int biggestM = Math.max(this.M, other.M);
-
-        Matrix tempMatrix = new Matrix(biggestN, biggestM, mod, this.values);
-        Matrix tempMatrix2 = new Matrix(biggestN, biggestM, mod, other.values);
-
-        for (int i = 0; i < biggestN; i++) {
-            for (int j = 0; j < biggestM; j++) {
-                tempMatrix.values[i][j] = Math.floorMod((tempMatrix.values[i][j] - tempMatrix2.values[i][j]), mod);
-            }
-        }
-        return tempMatrix;
-    }
-
-    public Matrix componentProduct(Matrix other){
-        areModsEqual(other.mod); // Not sure if right
-        int biggestN = Math.max(this.N, other.N);
-        int biggestM = Math.max(this.M, other.M);
-
-        Matrix tempMatrix = new Matrix(biggestN, biggestM, mod, this.values);
-        Matrix tempMatrix2 = new Matrix(biggestN, biggestM, mod, other.values);
-
-        for (int i = 0; i < biggestN; i++) {
-            for (int j = 0; j < biggestM; j++) {
-                tempMatrix.values[i][j] = Math.floorMod((tempMatrix.values[i][j] * tempMatrix2.values[i][j]), mod);
-            }
-        }
-        return tempMatrix;
-    }
-
-    private boolean areModsEqual(int otherMod){
-        if (this.mod != otherMod) {
+    private void checkIfModsEquals(Matrix other){
+        if (this.mod != other.mod) {
             throw new RuntimeException("the modulus are not equal");
         }
-        return true;
     }
 }
