@@ -3,21 +3,22 @@ package ch.heigvd.poo;
 import java.util.function.BinaryOperator;
 
 public class Matrix {
+    static final int SEED = 1;
     private int N;
     private int M;
     private int mod;
     private int[][] values;
 
-    public Matrix( int N, int M, int mod ) {
+    public Matrix(int N, int M, int mod) {
         this.N = N;
         this.M = M;
         this.mod = mod;
         this.values = new int[N][M];
 
-        java.util.Random random = new java.util.Random();
+        java.util.Random random = new java.util.Random(SEED);
 
-        for(int i = 0; i < N; i++) {
-            for(int j = 0; j < M; j++) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
                 this.values[i][j] = random.nextInt(mod);
             }
         }
@@ -30,8 +31,8 @@ public class Matrix {
         this.mod = mod;
         this.values = new int[N][M];
 
-        for(int i = 0; i < N; i++) {
-            for(int j = 0; j < M; j++) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
                 this.values[i][j] = values[i][j] % mod;
             }
         }
@@ -47,8 +48,8 @@ public class Matrix {
         int currentValuesN = values.length;
         int currentValuesM = values[0].length;
 
-        for(int i = 0; i < N; i++) {
-            for(int j = 0; j < M; j++) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
                 if (i < currentValuesN && j < currentValuesM) this.values[i][j] = values[i][j] % mod;
                 else this.values[i][j] = 0;
             }
@@ -101,7 +102,7 @@ public class Matrix {
         return null;
     }
 
-    private void checkIfModsEquals(Matrix other){
+    private void checkIfModsEquals(Matrix other) {
         if (this.mod != other.mod) {
             throw new RuntimeException("the modulus are not equal");
         }
