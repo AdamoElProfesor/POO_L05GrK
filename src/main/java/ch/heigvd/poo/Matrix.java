@@ -1,6 +1,5 @@
 package ch.heigvd.poo;
-
-import java.util.function.BinaryOperator;
+import ch.heigvd.poo.operators.Operator;
 
 public class Matrix {
     static final int SEED = 1;
@@ -68,19 +67,7 @@ public class Matrix {
         return str.toString();
     }
 
-    public Matrix addition(Matrix other) {
-        return performOperation(other, (a, b) -> Math.floorMod(a + b, mod));
-    }
-
-    public Matrix subtraction(Matrix other) {
-        return performOperation(other, (a, b) -> Math.floorMod(a - b, mod));
-    }
-
-    public Matrix componentProduct(Matrix other) {
-        return performOperation(other, (a, b) -> Math.floorMod(a * b, mod));
-    }
-
-    private Matrix performOperation(Matrix other, BinaryOperator<Integer> operation) {
+    public Matrix performOperation(Matrix other, Operator operator) {
         try {
             checkIfModsEquals(other);
             int biggestN = Math.max(this.N, other.N);
@@ -91,7 +78,7 @@ public class Matrix {
 
             for (int i = 0; i < biggestN; i++) {
                 for (int j = 0; j < biggestM; j++) {
-                    tempMatrix.values[i][j] = operation.apply(tempMatrix.values[i][j], tempMatrix2.values[i][j]);
+                    tempMatrix.values[i][j] = Math.floorMod(operator.doOperation(tempMatrix.values[i][j], tempMatrix2.values[i][j]), mod);
                 }
             }
 
