@@ -1,6 +1,12 @@
 package ch.heigvd.poo;
+
 import ch.heigvd.poo.operators.Operator;
 
+/**
+ * Matrix class for handling matrices with operations constrained by a modulus.
+ * Provides methods for creating matrices, displaying them, and performing
+ * operations with other matrices.
+ */
 public class Matrix {
     static final int SEED = 1;
     private int N;
@@ -9,9 +15,11 @@ public class Matrix {
     private int[][] values;
 
     /**
-     * @param N
-     * @param M
-     * @param mod
+     * Constructor that generates a matrix with random values.
+     *
+     * @param N   Number of rows in the matrix.
+     * @param M   Number of columns in the matrix.
+     * @param mod Modulus used for constraining values.
      */
     public Matrix(int N, int M, int mod) {
         this.N = N;
@@ -28,6 +36,17 @@ public class Matrix {
         }
     }
 
+    /**
+     * Constructor that generates a matrix from provided values.
+     * Values will be constrained by the modulus.
+     *
+     * @param N      Number of rows in the matrix.
+     * @param M      Number of columns in the matrix.
+     * @param mod    Modulus used for constraining values.
+     * @param values 2D array of values to initialize the matrix.
+     *               If the provided array has fewer rows or columns,
+     *               missing values are replaced by 0.
+     */
     public Matrix(int N, int M, int mod, int[][] values) {
         this.N = N;
         this.M = M;
@@ -54,7 +73,11 @@ public class Matrix {
         }
     }
 
-
+    /**
+     * Generates a string representation of the matrix.
+     *
+     * @return String representing the matrix in a grid format.
+     */
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
@@ -67,6 +90,15 @@ public class Matrix {
         return str.toString();
     }
 
+    /**
+     * Performs an element-wise operation between this matrix and another matrix
+     * using a specified operator, constrained by the modulus.
+     *
+     * @param other    The other matrix to operate with.
+     * @param operator The operation to perform, represented by the Operator interface.
+     * @return A new Matrix containing the result of the operation.
+     * Returns null if the operation fails due to incompatible matrices.
+     */
     public Matrix performOperation(Matrix other, Operator operator) {
         try {
             checkIfModsEquals(other);
@@ -89,6 +121,12 @@ public class Matrix {
         return null;
     }
 
+    /**
+     * Checks if the modulus of this matrix is equal to the modulus of another matrix.
+     *
+     * @param other The other matrix to compare with.
+     * @throws RuntimeException If the modulus of the matrices are not equal.
+     */
     private void checkIfModsEquals(Matrix other) {
         if (this.mod != other.mod) {
             throw new RuntimeException("The modulus are not equal");

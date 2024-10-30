@@ -7,7 +7,7 @@ public class Main {
 
         int MODULUS = 5;
 
-        int[][] values1 = {{1}, {1, 2}};
+        int[][] values1 = {{1, 2, 3, 4}, {1, 2}};
         int[][] values2 = {{1, 4, 2, 3, 2}, {0, 1, 0, 6, 2}, {0, 0, 2, 0, 2}};
 
         Matrix matrix1 = new Matrix(3, 3, MODULUS, values1);
