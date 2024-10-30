@@ -8,6 +8,11 @@ public class Matrix {
     private int mod;
     private int[][] values;
 
+    /**
+     * @param N
+     * @param M
+     * @param mod
+     */
     public Matrix(int N, int M, int mod) {
         this.N = N;
         this.M = M;
@@ -23,37 +28,32 @@ public class Matrix {
         }
     }
 
-    public Matrix(int[][] values, int mod) {
-        // Check if matrix given is null ?
-        this.N = values.length;
-        this.M = values[0].length;
-        this.mod = mod;
-        this.values = new int[N][M];
-
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
-                this.values[i][j] = values[i][j] % mod;
-            }
-        }
-    }
-
     public Matrix(int N, int M, int mod, int[][] values) {
-        // Check if matrix given is null ?
         this.N = N;
         this.M = M;
         this.mod = mod;
         this.values = new int[N][M];
 
         int currentValuesN = values.length;
-        int currentValuesM = values[0].length;
 
         for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
-                if (i < currentValuesN && j < currentValuesM) this.values[i][j] = values[i][j] % mod;
-                else this.values[i][j] = 0;
+
+            if (i < currentValuesN) {
+                int currentValuesM = values[i].length;
+                for (int j = 0; j < M; j++) {
+
+                    if (j < currentValuesM) this.values[i][j] = values[i][j] % mod;
+                    else this.values[i][j] = 0;
+                }
+            } else {
+
+                for (int j = 0; j < M; j++) {
+                    this.values[i][j] = 0;
+                }
             }
         }
     }
+
 
     @Override
     public String toString() {
@@ -91,7 +91,7 @@ public class Matrix {
 
     private void checkIfModsEquals(Matrix other) {
         if (this.mod != other.mod) {
-            throw new RuntimeException("the modulus are not equal");
+            throw new RuntimeException("The modulus are not equal");
         }
     }
 }

@@ -7,11 +7,11 @@ public class Main {
 
         int MODULUS = 5;
 
-        int[][] values1 = {{1, 3, 1, 1}, {3, 2, 4, 2}, {1, 0, 1, 0}};
-        int[][] values2 = {{1, 4, 2, 3, 2}, {0, 1, 0, 4, 2}, {0, 0, 2, 0, 2}};
+        int[][] values1 = {{1}, {1, 2}};
+        int[][] values2 = {{1, 4, 2, 3, 2}, {0, 1, 0, 6, 2}, {0, 0, 2, 0, 2}};
 
-        Matrix matrix1 = new Matrix(values1, MODULUS);
-        Matrix matrix2 = new Matrix(values2, MODULUS);
+        Matrix matrix1 = new Matrix(3, 3, MODULUS, values1);
+        Matrix matrix2 = new Matrix(3, 3,MODULUS + 1, values2);
 
         Operator operatorAdd = new Addition();
         Operator operatorSub = new Subtraction();
