@@ -120,6 +120,7 @@ public class Matrix {
             return tempMatrix;
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            System.exit(1);
         }
         return null;
     }
