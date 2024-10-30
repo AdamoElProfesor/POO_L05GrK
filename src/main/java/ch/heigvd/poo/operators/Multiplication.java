@@ -1,6 +1,8 @@
 package ch.heigvd.poo.operators;
 
 /**
+ * @author Gruber Adam
+ * @author Pittet Axel
  * Multiplication class implementing the Operator interface.
  * Provides a multiplication operation between two integers.
  */

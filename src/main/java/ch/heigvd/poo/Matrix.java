@@ -3,9 +3,12 @@ package ch.heigvd.poo;
 import ch.heigvd.poo.operators.Operator;
 
 /**
+ * @author Gruber Adam
+ * @author Pittet Axel
  * Matrix class for handling matrices with operations constrained by a modulus.
  * Provides methods for creating matrices, displaying them, and performing
  * operations with other matrices.
+ * 
  */
 public class Matrix {
     static final int SEED = 1;

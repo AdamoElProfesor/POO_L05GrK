@@ -1,6 +1,8 @@
 package ch.heigvd.poo.operators;
 
 /**
+ * @author Gruber Adam
+ * @author Pittet Axel
  * Addition class implementing the Operator interface.
  * Provides an addition operation between two integers.
  */

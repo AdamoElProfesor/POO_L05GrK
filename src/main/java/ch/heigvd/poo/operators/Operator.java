@@ -1,6 +1,8 @@
 package ch.heigvd.poo.operators;
 
 /**
+ * @author Gruber Adam
+ * @author Pittet Axel
  * Operator interface for defining a mathematical operation between two integers.
  */
 public interface Operator {

@@ -1,6 +1,8 @@
 package ch.heigvd.poo.operators;
 
 /**
+ * @author Gruber Adam
+ * @author Pittet Axel
  * Subtraction class implementing the Operator interface.
  * Provides a subtraction operation between two integers.
  */
