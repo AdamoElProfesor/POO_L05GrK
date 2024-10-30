@@ -1,6 +1,15 @@
 package ch.heigvd.poo;
+
 import ch.heigvd.poo.operators.Operator;
 
+/**
+ * @author Gruber Adam
+ * @author Pittet Axel
+ * Matrix class for handling matrices with operations constrained by a modulus.
+ * Provides methods for creating matrices, displaying them, and performing
+ * operations with other matrices.
+ * 
+ */
 public class Matrix {
     static final int SEED = 1;
     private int N;
@@ -8,6 +17,13 @@ public class Matrix {
     private int mod;
     private int[][] values;
 
+    /**
+     * Constructor that generates a matrix with random values.
+     *
+     * @param N   Number of rows in the matrix.
+     * @param M   Number of columns in the matrix.
+     * @param mod Modulus used for constraining values.
+     */
     public Matrix(int N, int M, int mod) {
         this.N = N;
         this.M = M;
@@ -23,38 +39,48 @@ public class Matrix {
         }
     }
 
-    public Matrix(int[][] values, int mod) {
-        // Check if matrix given is null ?
-        this.N = values.length;
-        this.M = values[0].length;
-        this.mod = mod;
-        this.values = new int[N][M];
-
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
-                this.values[i][j] = values[i][j] % mod;
-            }
-        }
-    }
-
+    /**
+     * Constructor that generates a matrix from provided values.
+     * Values will be constrained by the modulus.
+     *
+     * @param N      Number of rows in the matrix.
+     * @param M      Number of columns in the matrix.
+     * @param mod    Modulus used for constraining values.
+     * @param values 2D array of values to initialize the matrix.
+     *               If the provided array has fewer rows or columns,
+     *               missing values are replaced by 0.
+     */
     public Matrix(int N, int M, int mod, int[][] values) {
-        // Check if matrix given is null ?
         this.N = N;
         this.M = M;
         this.mod = mod;
         this.values = new int[N][M];
 
         int currentValuesN = values.length;
-        int currentValuesM = values[0].length;
 
         for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
-                if (i < currentValuesN && j < currentValuesM) this.values[i][j] = values[i][j] % mod;
-                else this.values[i][j] = 0;
+
+            if (i < currentValuesN) {
+                int currentValuesM = values[i].length;
+                for (int j = 0; j < M; j++) {
+
+                    if (j < currentValuesM) this.values[i][j] = values[i][j] % mod;
+                    else this.values[i][j] = 0;
+                }
+            } else {
+
+                for (int j = 0; j < M; j++) {
+                    this.values[i][j] = 0;
+                }
             }
         }
     }
 
+    /**
+     * Generates a string representation of the matrix.
+     *
+     * @return String representing the matrix in a grid format.
+     */
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
@@ -67,6 +93,15 @@ public class Matrix {
         return str.toString();
     }
 
+    /**
+     * Performs an element-wise operation between this matrix and another matrix
+     * using a specified operator, constrained by the modulus.
+     *
+     * @param other    The other matrix to operate with.
+     * @param operator The operation to perform, represented by the Operator interface.
+     * @return A new Matrix containing the result of the operation.
+     * Returns null if the operation fails due to incompatible matrices.
+     */
     public Matrix performOperation(Matrix other, Operator operator) {
         try {
             checkIfModsEquals(other);
@@ -89,9 +124,15 @@ public class Matrix {
         return null;
     }
 
+    /**
+     * Checks if the modulus of this matrix is equal to the modulus of another matrix.
+     *
+     * @param other The other matrix to compare with.
+     * @throws RuntimeException If the modulus of the matrices are not equal.
+     */
     private void checkIfModsEquals(Matrix other) {
         if (this.mod != other.mod) {
-            throw new RuntimeException("the modulus are not equal");
+            throw new RuntimeException("The modulus are not equal");
         }
     }
 }
